@@ -31,12 +31,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         finish();
     }
 
-    private void openRegistrarUsuario() {
-        Intent intent = new Intent(getBaseContext(), RegistrarActorActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -48,5 +42,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 openPrincipal();
                 break;
         }
+    }
+
+    private void openRegistrarUsuario() {
+        Intent intent = new Intent(this, RegistrarUsuarioActivity.class);
+        startActivity(intent);
     }
 }

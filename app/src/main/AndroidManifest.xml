@@ -49,7 +49,7 @@
             android:name=".PrincipalActivity"
             android:label="@string/title_activity_principal"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".RegistrarActorActivity"></activity>
+        <activity android:name=".RegistrarUsuarioActivity"></activity>
 
         <service
             android:name=".MiFirebaseMessagingService">

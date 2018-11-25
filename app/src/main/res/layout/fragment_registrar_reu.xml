@@ -6,6 +6,12 @@
     android:orientation="vertical"
     tools:context=".RegistrarReuFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="@string/new_reu" />
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/tilReuNombre"
         android:layout_width="match_parent"
@@ -15,8 +21,7 @@
             android:id="@+id/edtReuNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/name"
-            android:inputType="number"
+            android:hint="@string/reu_name"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </android.support.design.widget.TextInputLayout>
@@ -35,35 +40,33 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/reu_type" />
+        android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/spnTipo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilLugar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/edtLugar"
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/spnTipo"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/place"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_weight="1" />
 
-    </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilFecha"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
-    <Button
-        android:id="@+id/btnMapa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/go_map" />
+            <EditText
+                android:id="@+id/edtFecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/date" />
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,26 +74,26 @@
         android:orientation="horizontal">
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/tilInvitado"
+            android:id="@+id/tilLugar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2">
+            android:layout_weight="0.85">
 
             <EditText
-                android:id="@+id/edtInvitado"
+                android:id="@+id/edtLugar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/number_people"
+                android:hint="@string/place"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/btnInvitado"
+            android:id="@+id/btnMapa"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/invite_people" />
+            android:layout_height="50dp"
+            android:layout_weight="0.15"
+            android:background="@drawable/map" />
 
     </LinearLayout>
 
