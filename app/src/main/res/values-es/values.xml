@@ -31,6 +31,9 @@
     <string name="number_people">Cantidad de Invitados</string>
     <string name="invite_people">Invitar Gente</string>
 
+    <!-- Buscar Reu -->
+    <string name="date">Fecha</string>
+
 
     <!-- Registar Actor -->
     <string name="number">DNI</string>

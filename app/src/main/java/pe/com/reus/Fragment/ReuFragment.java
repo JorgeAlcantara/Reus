@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import pe.com.reus.BuscarReuFragment;
 import pe.com.reus.R;
 import pe.com.reus.RegistrarReuFragment;
 
@@ -35,6 +36,7 @@ public class ReuFragment extends Fragment implements View.OnClickListener {
     private OnFragmentInteractionListener mListener;
 
     private ImageView imgRegistrarReu;
+    private ImageView imgBuscarReu;
 
     public ReuFragment() {
         // Required empty public constructor
@@ -74,8 +76,10 @@ public class ReuFragment extends Fragment implements View.OnClickListener {
         View view =  inflater.inflate(R.layout.fragment_reu, container, false);
 
         imgRegistrarReu = view.findViewById(R.id.imgRegistrarReu);
+        imgBuscarReu = view.findViewById(R.id.imgBuscarReu);
 
         imgRegistrarReu.setOnClickListener(this);
+        imgBuscarReu.setOnClickListener(this);
 
         return  view;
 
@@ -129,6 +133,9 @@ public class ReuFragment extends Fragment implements View.OnClickListener {
             case R.id.imgRegistrarReu:
                 openRegistrarReu();
                 break;
+            case R.id.imgBuscarReu:
+                openBuscarReu();
+                break;
         }
 
     }
@@ -136,6 +143,16 @@ public class ReuFragment extends Fragment implements View.OnClickListener {
     private void openRegistrarReu() {
 
         RegistrarReuFragment fragment = new RegistrarReuFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.contenedor, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    private void openBuscarReu() {
+
+        BuscarReuFragment fragment = new BuscarReuFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.contenedor, fragment);
