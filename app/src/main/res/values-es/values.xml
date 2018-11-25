@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="welcome">Bienvenido</string>
+    <string name="user">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="logup">Registrate</string>
+
+    <string name="lema">Tu punto de encuentro!</string>
+
+    <string name="reu">Mis Reus</string>
+    <string name="people">Mi Gente</string>
+    <string name="gallery">Galeria</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="options">Opciones</string>
+    <string name="log_out">Cerrar sesión</string>
+
+    <!-- Reu -->
+    <string name="new_reu">Crear Reu</string>
+    <string name="search_reu">Buscar Reu</string>
+    <string name="record_reu">Historial Reu</string>
+
+    <!-- Registar Reu -->
+    <string name="reu_name">Nombre de la Reu</string>
+    <string name="code_name">Nombre Clave</string>
+    <string name="reu_type">Tipo de Reu</string>
+    <string name="place">Lugar</string>
+    <string name="go_map">Ir al Mapa</string>
+    <string name="number_people">Cantidad de Invitados</string>
+    <string name="invite_people">Invitar Gente</string>
+
+
+    <!-- Registar Actor -->
+    <string name="number">DNI</string>
+    <string name="name">Nombre</string>
+    <string name="last_name">Apellido</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="telephone">Telefono</string>
+    <string name="email">Correo electronico</string>
+
+    <string name="save">Grabar</string>
+    <string name="cancel">Cancelar</string>
+
+
+</resources>

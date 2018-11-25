@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentRight="true"
+    android:fastScrollAlwaysVisible="true"
+    android:fastScrollEnabled="true"
+    android:fillViewport="true"
+    android:isScrollContainer="true"
+    android:scrollbarStyle="insideInset"
+    android:scrollbars="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".Fragment.GaleriaFragment">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Las previas" />
+
+        <ImageView
+            android:id="@+id/imgRegistrarReu"
+            android:layout_width="240dp"
+            android:layout_height="154dp"
+            android:layout_gravity="center"
+            android:background="@drawable/crear_reu" />
+
+        <Button
+            android:id="@+id/btnCamara"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_menu_camera" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgCamara1"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp" />
+
+                <ImageView
+                    android:id="@+id/imgCamara2"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgCamara3"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp" />
+
+                <ImageView
+                    android:id="@+id/imgCamara4"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgCamara5"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

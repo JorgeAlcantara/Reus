@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentRight="true"
+    android:fastScrollAlwaysVisible="true"
+    android:fastScrollEnabled="true"
+    android:fillViewport="true"
+    android:isScrollContainer="true"
+    android:scrollbarStyle="insideInset"
+    android:scrollbars="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".Fragment.ReuFragment">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/new_reu" />
+
+        <ImageView
+            android:id="@+id/imgRegistrarReu"
+            android:layout_width="240dp"
+            android:layout_height="154dp"
+            android:background="@drawable/crear_reu"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/search_reu" />
+
+        <ImageView
+            android:id="@+id/imgBuscarReu"
+            android:layout_width="240dp"
+            android:layout_height="154dp"
+            android:background="@drawable/buscar_reu"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/record_reu" />
+
+        <ImageView
+            android:id="@+id/imgHistorialReu"
+            android:layout_width="240dp"
+            android:layout_height="154dp"
+            android:background="@drawable/historial_reu"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+</ScrollView>
