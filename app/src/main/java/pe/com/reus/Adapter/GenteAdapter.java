@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import pe.com.reu.Model.Gente;
-import pe.com.reu.R;
+import pe.com.reus.Model.Gente;
+import pe.com.reus.R;
 
 public class GenteAdapter extends RecyclerView.Adapter<GenteAdapter.MyViewHolder> {
 

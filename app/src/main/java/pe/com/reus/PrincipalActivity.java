@@ -17,10 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import pe.com.reu.Fragment.GaleriaFragment;
-import pe.com.reu.Fragment.GenteFragment;
-import pe.com.reu.Fragment.NotificacionFragment;
-import pe.com.reu.Fragment.ReuFragment;
+import pe.com.reus.Fragment.GaleriaFragment;
+import pe.com.reus.Fragment.GenteFragment;
+import pe.com.reus.Fragment.NotificacionFragment;
+import pe.com.reus.Fragment.ReuFragment;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

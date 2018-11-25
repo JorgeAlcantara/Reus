@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import pe.com.reu.Adapter.GenteAdapter;
-import pe.com.reu.Model.Gente;
-import pe.com.reu.R;
+import pe.com.reus.Adapter.GenteAdapter;
+import pe.com.reus.Model.Gente;
+import pe.com.reus.R;
 
 
 /**

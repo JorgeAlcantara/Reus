@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import java.io.File;
 
-import pe.com.reu.R;
+import pe.com.reus.R;
 
 
 /**

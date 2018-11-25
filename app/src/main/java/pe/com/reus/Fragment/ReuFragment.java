@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import pe.com.reu.R;
-import pe.com.reu.RegistrarReuFragment;
+import pe.com.reus.R;
+import pe.com.reus.RegistrarReuFragment;
 
 
 /**
