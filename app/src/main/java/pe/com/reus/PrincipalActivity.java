@@ -50,7 +50,7 @@ public class PrincipalActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        setContent(1);
+        setContent(2);
     }
 
     @Override
@@ -91,18 +91,20 @@ public class PrincipalActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_reu) {
+        if (id == R.id.nav_datos) {
             setContent(1);
-        } else if (id == R.id.nav_gente) {
+        } else if (id == R.id.nav_reu) {
             setContent(2);
-        } else if (id == R.id.nav_galeria) {
+        } else if (id == R.id.nav_gente) {
             setContent(3);
-        } else if (id == R.id.nav_notificacion) {
+        } else if (id == R.id.nav_galeria) {
             setContent(4);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_notificacion) {
+            setContent(5);
+        } else if (id == R.id.nav_opciones) {
             setContent(6);
+        } else if (id == R.id.nav_sesion) {
+            setContent(7);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -116,25 +118,34 @@ public class PrincipalActivity extends AppCompatActivity
         switch (position) {
             case 1:
                 //f = LlantaFragment.newInstance(CodigoUsuario);
-                f = new ReuFragment();
+                f = new ActualizarUsuarioFragment();
                 break;
 
             case 2:
                 //f = LlantaFragment.newInstance(CodigoUsuario);
-                f = new GenteFragment();
+                f = new ReuFragment();
                 break;
 
             case 3:
+                //f = LlantaFragment.newInstance(CodigoUsuario);
+                f = new GenteFragment();
+                break;
+
+            case 4:
                 //f =  MecanicaFragment.newInstance(CodigoUsuario,"");
                 f = new GaleriaFragment();
                 break;
 
-            case 4:
+            case 5:
                 //f =  BateriaFragment.newInstance(CodigoUsuario);
                 f = new NotificacionFragment();
                 break;
 
-            case 6: //Cerrar Sesion
+            case 6:
+                //
+                break;
+
+            case 7: //Cerrar Sesion
                 cerrarSesion();
                 break;
         }

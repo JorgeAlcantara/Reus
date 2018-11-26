@@ -49,5 +49,6 @@
     <!-- Botones -->
     <string name="save">Grabar</string>
     <string name="cancel">Cancelar</string>
+    <string name="search">Buscar</string>
 
 </resources>

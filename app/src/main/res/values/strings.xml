@@ -49,6 +49,7 @@
     <!-- Botones -->
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="search">Search</string>
 
     <string name="title_activity_principal">Reu!!!</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
