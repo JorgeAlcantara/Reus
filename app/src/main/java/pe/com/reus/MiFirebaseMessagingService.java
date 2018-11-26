@@ -12,10 +12,13 @@ public class MiFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+
+
         String from = remoteMessage.getFrom();
         Log.d(TAG, "Mensaje recibido de:" + from);
         if (remoteMessage.getNotification() != null){
             Log.d(TAG,"Notificacion" + remoteMessage.getNotification().getBody());
         }
+
     }
 }

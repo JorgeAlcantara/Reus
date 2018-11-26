@@ -9,6 +9,7 @@ public class MiFirebaseInstanceIdService extends FirebaseInstanceIdService {
 
     public static final String TAG="NOTICIAS";
 
+    /*
     @Override
     public void onTokenRefresh() {
         super.onTokenRefresh();
@@ -17,4 +18,5 @@ public class MiFirebaseInstanceIdService extends FirebaseInstanceIdService {
 
         Log.d(TAG, "Token" + token);
     }
+    */
 }
