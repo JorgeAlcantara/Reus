@@ -2,10 +2,7 @@ package pe.com.reus;
 
 import android.util.Log;
 
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
-
-public class MiFirebaseInstanceIdService extends FirebaseInstanceIdService {
+public class MiFirebaseInstanceIdService {//extends FirebaseInstanceIdService {
 
     public static final String TAG="NOTICIAS";
 
