@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Reus!!!</string>
 
-    <string name="lema">Your meeting point!</string>
+    <string name="lema">Your meeting point</string>
 
     <!-- Logueo -->
     <string name="welcome">Welcome</string>
@@ -31,6 +31,10 @@
     <string name="place">Place</string>
     <string name="go_map">Go to the Map</string>
     <string name="date">Date</string>
+
+    <!-- Mapa -->
+    <string name="confirm_location">Confirm Location</string>
+    <string name="my_position">My current position</string>
 
     <!-- Registar Usuario -->
     <string name="new_user">New User</string>

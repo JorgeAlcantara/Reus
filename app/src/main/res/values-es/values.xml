@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="lema">Tu punto de encuentro!</string>
+    <string name="lema">Tu punto de encuentro</string>
 
     <!-- Logueo -->
     <string name="welcome">Bienvenido</string>
@@ -31,6 +31,10 @@
     <string name="place">Lugar</string>
     <string name="go_map">Ir al Mapa</string>
     <string name="date">Fecha</string>
+
+    <!-- Mapa -->
+    <string name="confirm_location">Confirmar Ubicacion</string>
+    <string name="my_position">Mi posicion actual</string>
 
     <!-- Registar Usuario -->
     <string name="new_user">Nuevo Usuario</string>
