@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -20,6 +22,7 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
 
     private final Calendar cFecha = Calendar.getInstance();
     private EditText edtFecha;
+    private EditText edtLugar;
     private Button btnGrabar;
     private Button btnMapa;
 
@@ -31,9 +34,11 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_registrar_reu, container, false);
+        View view = inflater.inflate(R.layout.fragment_registrar_reu, container, false);
 
         edtFecha = view.findViewById(R.id.edtFecha);
+        edtLugar = view.findViewById(R.id.edtLugar);
+
         btnGrabar = view.findViewById(R.id.btnGrabar);
         btnMapa = view.findViewById(R.id.btnMapa);
 
@@ -87,8 +92,20 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
     }
 
     public void openMapa() {
+
         Intent intent = new Intent(getActivity(), MapaActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            String message = data.getStringExtra("direccion");
+            edtLugar.setText(message);
+        }
+
     }
 
 }

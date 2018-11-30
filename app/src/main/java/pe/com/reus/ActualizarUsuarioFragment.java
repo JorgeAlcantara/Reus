@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import pe.com.reus.Model.Reniec;
@@ -28,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ActualizarUsuarioFragment extends Fragment {
 
-    private String urlReniec = Global.urlReniec;
+    private String urlReniec = Globals.urlReniec;
 
     private Retrofit retrofitReniec;
     private RestService restServiceReniec;
