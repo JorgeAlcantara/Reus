@@ -27,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ActualizarUsuarioFragment extends Fragment {
 
-    private String urlReniec = Globals.urlReniec;
+    private String urlReniec = Globals.urlReus;
 
     private Retrofit retrofitReniec;
     private RestService restServiceReniec;

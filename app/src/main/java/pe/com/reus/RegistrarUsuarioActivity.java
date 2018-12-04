@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegistrarUsuarioActivity extends AppCompatActivity {
 
-    private String urlReniec = Globals.urlReniec;
+    private String urlReniec = Globals.urlReus;
 
     private Retrofit retrofitUsuario;
     private RestService restServiceUsuario;

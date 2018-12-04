@@ -2,10 +2,9 @@ package pe.com.reus;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,17 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import pe.com.reus.Model.Reu;
+import pe.com.reus.RestService.RestService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegistrarReuFragment extends Fragment implements View.OnClickListener {
 
@@ -25,6 +31,14 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
     private EditText edtLugar;
     private Button btnGrabar;
     private Button btnMapa;
+
+    private String mensaje;
+
+    private String urlReus = Globals.urlReus;
+
+
+    private Retrofit retrofitReus;
+    private RestService restServiceReus;
 
     public RegistrarReuFragment() {
         // Required empty public constructor
@@ -48,6 +62,15 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
 
         fechaActual();
 
+        //Reniec
+        retrofitReus = new Retrofit.Builder()
+                .baseUrl(urlReus)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        restServiceReus = retrofitReus.create(RestService.class);
+        //Reniec
+
         return view;
     }
 
@@ -58,7 +81,7 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
                 dateOnClickFecha(view);
                 break;
             case R.id.btnGrabar:
-                grabar();
+                grabarReu();
                 break;
             case R.id.btnMapa:
                 openMapa();
@@ -87,8 +110,35 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
                 cFecha.get(Calendar.YEAR), cFecha.get(Calendar.MONTH), cFecha.get(Calendar.DAY_OF_MONTH)).show();
     }
 
-    public void grabar() {
+    private void grabarReu() {
 
+        Reu reu = new Reu();
+        reu.setIdEvento(1);
+        //reu.setIdActor(1);
+        reu.setDescripcion(edtLugar.getText().toString());
+        reu.setLatitud(Globals.latitud);
+        reu.setLongitud(Globals.longitud);
+        reu.setFecha(edtFecha.getText().toString());
+        reu.setHora("");
+        reu.setEstado(1);
+
+        restServiceReus.Eventos(reu).enqueue(new Callback<Reu>() {
+            @Override
+            public void onResponse(Call<Reu> call, Response<Reu> response) {
+
+                if (response.isSuccessful()) {
+                    mensaje = response.body().toString();
+                    //txtMensaje.setText("Registro OK - " + mensaje.toString());
+                    Log.i("RestService - OK", response.body().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Reu> call, Throwable t) {
+                Log.i("RestService - Error ", "onFailure: ", t);
+                //txtMensaje.setText(t.toString());
+            }
+        });
     }
 
     public void openMapa() {
