@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pe.com.reus">
 
+    <!-- oficina : 63:B6:CD:71:92:46:52:BA:4D:27:52:68:28:DA:CC:20:D0:F8:32:41 -->
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />

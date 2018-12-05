@@ -5,15 +5,19 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import pe.com.reus.Model.Actor;
 import pe.com.reus.Model.Reniec;
+import pe.com.reus.Model.Reu;
 import pe.com.reus.RestService.RestService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,12 +29,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ActualizarUsuarioFragment extends Fragment {
+public class ActualizarUsuarioFragment extends Fragment implements View.OnClickListener{
 
     private String urlReniec = Globals.urlReus;
 
-    private Retrofit retrofitReniec;
-    private RestService restServiceReniec;
+    private Retrofit retrofitActor;
+    private RestService restServiceActor;
 
     private EditText edtCorreo;
     private EditText edtContraseña;
@@ -40,6 +44,7 @@ public class ActualizarUsuarioFragment extends Fragment {
     private RadioGroup rgSexo;
     private RadioButton rbMasculino, rbFemenino;
     private EditText edtTelefono;
+    private Button btnGrabar;
 
     public ActualizarUsuarioFragment() {
         // Required empty public constructor
@@ -61,15 +66,18 @@ public class ActualizarUsuarioFragment extends Fragment {
         rbMasculino = view.findViewById(R.id.rbMasculino);
         rbFemenino = view.findViewById(R.id.rbFemenino);
         edtTelefono = view.findViewById(R.id.edtTelefono);
+        btnGrabar = view.findViewById(R.id.btnGrabar);
 
-        //Reniec
-        retrofitReniec = new Retrofit.Builder()
+        btnGrabar.setOnClickListener(this);
+
+        //Actor
+        retrofitActor = new Retrofit.Builder()
                 .baseUrl(urlReniec)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        restServiceReniec = retrofitReniec.create(RestService.class);
-        //Reniec
+        restServiceActor = retrofitActor.create(RestService.class);
+        //Actor
 
         edtDni.addTextChangedListener(new TextWatcher() {
             @Override
@@ -98,8 +106,18 @@ public class ActualizarUsuarioFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnGrabar:
+                grabarActor();
+                break;
+
+        }
+    }
+
     private void buscarDni(Long dni) {
-        restServiceReniec.buscarDni(dni).enqueue(new Callback<Reniec>() {
+        restServiceActor.buscarDni(dni).enqueue(new Callback<Reniec>() {
 
             private Reniec reniec;
 
@@ -136,10 +154,48 @@ public class ActualizarUsuarioFragment extends Fragment {
         });
     }
 
+    private void grabarActor() {
+
+    int sexo =0;
+
+        Actor actor = new Actor();
+        actor.setIdActor(4);
+        actor.setNombres(edtNombre.getText().toString());
+        actor.setApellidos(edtApellido.getText().toString());
+        if (rbMasculino.isChecked() == true) {
+            sexo = 1;
+        }
+        if (rbFemenino.isChecked() == true) {
+            sexo = 2;
+
+        }
+        actor.setSexo(sexo);
+        actor.setTelefono(edtTelefono.getText().toString());
+        //actor.setFechaNacimiento();
+        //actor.setDireccion();
+        actor.setEstado(1);
+
+        restServiceActor.registrarActor(actor).enqueue(new Callback<Actor>() {
+            @Override
+            public void onResponse(Call<Actor> call, Response<Actor> response) {
+
+                if (response.isSuccessful()) {
+                    //txtMensaje.setText("Registro OK - " + mensaje.toString());
+                    Log.e("RestService - OK", response.body().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Actor> call, Throwable t) {
+                Log.e("RestService - Error ", "onFailure: ", t);
+                //txtMensaje.setText(t.toString());
+            }
+        });
+    }
+
     private void limpiarCampos() {
         edtNombre.setText("");
         edtApellido.setText("");
         rgSexo.clearCheck();
     }
-
 }

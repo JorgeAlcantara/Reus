@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import pe.com.reus.Model.Actor;
 import pe.com.reus.Model.Reu;
 import pe.com.reus.RestService.RestService;
 import retrofit2.Call;
@@ -112,9 +113,13 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
 
     private void grabarReu() {
 
+        Actor actor = new Actor();
+        actor.setIdActor(4);
+
+
         Reu reu = new Reu();
         reu.setIdEvento(1);
-        //reu.setIdActor(1);
+        reu.setIdActor(4);
         reu.setDescripcion(edtLugar.getText().toString());
         reu.setLatitud(Globals.latitud);
         reu.setLongitud(Globals.longitud);
@@ -122,7 +127,7 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
         reu.setHora("");
         reu.setEstado(1);
 
-        restServiceReus.Eventos(reu).enqueue(new Callback<Reu>() {
+        restServiceReus.registrarReu(reu).enqueue(new Callback<Reu>() {
             @Override
             public void onResponse(Call<Reu> call, Response<Reu> response) {
 
