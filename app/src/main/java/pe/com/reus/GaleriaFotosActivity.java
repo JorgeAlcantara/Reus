@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -13,24 +14,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.kosalgeek.android.imagebase64encoder.ImageBase64;
 
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-import org.xmlpull.v1.XmlPullParserException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.SocketTimeoutException;
-
 
 import pe.com.reus.Model.Foto;
+import pe.com.reus.Model.Imagen;
 
 public class GaleriaFotosActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -64,7 +57,10 @@ public class GaleriaFotosActivity extends AppCompatActivity implements View.OnCl
     private Button btnCamara3;
     private Button btnGrabar;
 
+    private ProgressBar progressBar;
+
     private int fotosCantidad;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +75,8 @@ public class GaleriaFotosActivity extends AppCompatActivity implements View.OnCl
 
         btnCamara = findViewById(R.id.btnCamara);
         btnGrabar = findViewById(R.id.btnGrabar);
+
+        progressBar = findViewById(R.id.progress_bar);
 
         btnCamara.setOnClickListener(this);
         btnGrabar.setOnClickListener(this);
@@ -128,10 +126,46 @@ public class GaleriaFotosActivity extends AppCompatActivity implements View.OnCl
                 abrirCamara();
                 break;
             case R.id.btnGrabar:
-                grabarFoto();
+                grabarAsyncTask();
                 break;
         }
     }
+
+    private void grabarAsyncTask() {
+
+        new miAsyncTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR); //PARALELO
+
+    }
+
+    private class miAsyncTask extends AsyncTask<Void, Void, Integer> {
+
+        @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+            btnGrabar.setEnabled(false);
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            Integer validar;
+            validar = grabarFoto();
+
+            return validar;
+        }
+
+        @Override
+        protected void onPostExecute(Integer validar) {
+            progressBar.setVisibility(View.INVISIBLE);
+            btnGrabar.setEnabled(true);
+            if (validar == 1) {
+                Toast.makeText(GaleriaFotosActivity.this, "Fotos Conforme", Toast.LENGTH_LONG).show();
+                finish();
+            } else {
+                Toast.makeText(GaleriaFotosActivity.this, "***Fotos No Conforme*** ", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
 
     private void abrirCamara() {
 
@@ -226,7 +260,7 @@ public class GaleriaFotosActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    private void grabarFoto() {
+    private int grabarFoto() {
 
         Foto foto = new Foto();
         fotosCantidad = 0;
@@ -253,141 +287,20 @@ public class GaleriaFotosActivity extends AppCompatActivity implements View.OnCl
         }
 
         if (fotosCantidad > 0) {
-            foto.setFotoNombre1(TEMPORAL_PICTURE_NAME1);
             foto.setFotoRuta1(imageViewToString(dir1));
-            foto.setFotoNombre2(TEMPORAL_PICTURE_NAME2);
             foto.setFotoRuta2(imageViewToString(dir2));
-            foto.setFotoNombre3(TEMPORAL_PICTURE_NAME3);
             foto.setFotoRuta3(imageViewToString(dir3));
-            foto.setFotoNombre4(TEMPORAL_PICTURE_NAME4);
             foto.setFotoRuta4(imageViewToString(dir4));
-            foto.setFotoNombre5(TEMPORAL_PICTURE_NAME5);
             foto.setFotoRuta5(imageViewToString(dir5));
             foto.setFotosCantidad(fotosCantidad);
 
-            try {
+            Imagen imagen = new Imagen();
+            imagen.grabarFoto(foto);
 
-                String SOAP_ACTION = "";
-                String METHOD_NAME = "";
-                String NAMESPACE = "";
-                String URL = "";
-                String TABLA = "";
-                String TOKEN = "";
-
-                SOAP_ACTION = Globals.SOAP_ACTION;
-                METHOD_NAME = Globals.METHOD_NAME;
-                NAMESPACE = Globals.NAMESPACE;
-                URL = Globals.URL;
-                TABLA = Globals.TABLA_PATIO;
-                TOKEN = Globals.TOKEN;
-
-                String fotoNombre = "";
-                String fotoRuta = "";
-                String result = "0";
-
-                //
-                SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER10);
-                HttpTransportSE transport = new HttpTransportSE(URL, 3000);
-                //
-
-                for (int x = 1; x <= fotosCantidad; x++) {
-
-                    if (x == 1) {
-                        fotoNombre = foto.getFotoNombre1();
-                        fotoRuta = foto.getFotoRuta1();
-                    }
-
-                    if (x == 2) {
-                        fotoNombre = foto.getFotoNombre2();
-                        fotoRuta = foto.getFotoRuta2();
-                    }
-
-                    if (x == 3) {
-                        fotoNombre = foto.getFotoNombre3();
-                        fotoRuta = foto.getFotoRuta3();
-                    }
-
-                    if (x == 4) {
-                        fotoNombre = foto.getFotoNombre4();
-                        fotoRuta = foto.getFotoRuta4();
-                    }
-
-                    if (x == 5) {
-                        fotoNombre = foto.getFotoNombre5();
-                        fotoRuta = foto.getFotoRuta5();
-                    }
-
-                    ////////////
-                    try {
-                        SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-                        request.addProperty("codigo_imagen", String.valueOf(x));
-                        request.addProperty("cadena", fotoRuta);
-                        request.addProperty("tabla", TABLA);
-                        request.addProperty("token", TOKEN);
-                        soapEnvelope.setOutputSoapObject(request);
-                        soapEnvelope.dotNet = false;
-
-                        try {
-                            result = "0";
-                            transport.call(SOAP_ACTION, soapEnvelope);
-
-                            SoapPrimitive resultSOAP = (SoapPrimitive) soapEnvelope.getResponse();
-                            result = resultSOAP.toString();
-
-                            if (result.equals("0")) {
-                                throw new Exception();
-                            }
-                        } catch (SocketTimeoutException e) {
-                            result = "0";
-                            mensaje = "Socket: " + e.getMessage().toString();
-                            e.printStackTrace();
-                            Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
-                        } catch (XmlPullParserException e) {
-                            result = "0";
-                            mensaje = "Xml: " + e.getMessage().toString();
-                            e.printStackTrace();
-                            Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
-                        } catch (IOException e) {
-                            result = "0";
-                            mensaje = "IO: " + e.getMessage().toString();
-                            e.printStackTrace();
-                            Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
-                        } catch (InterruptedException e) {
-                            result = "0";
-                            mensaje = "Inter: " + e.getMessage().toString();
-                            e.printStackTrace();
-                            Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
-                        } catch (Exception e) {
-                            result = "0";
-                            mensaje = "Excep1: " + e.getMessage().toString();
-                            e.printStackTrace();
-                            Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
-                        }
-
-                        if (result.equals("0")) {
-                            mensaje = "Break - " + mensaje;
-                            break;
-                        }
-
-                    } catch (Exception e) {
-                        result = "0";
-                        mensaje = "Excep2: " + e.getMessage().toString();
-                        e.printStackTrace();
-                        Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
-                    }
-                    ////////////
-
-                }
-
-
-            } catch (Exception ex) {
-
-                mensaje = "Exception / daReport.reportMovilImagen : " + ex.getMessage();
-                Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
-
-            }
 
         }
+
+        return 1;
 
     }
 
