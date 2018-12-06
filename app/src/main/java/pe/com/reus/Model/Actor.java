@@ -18,12 +18,10 @@ public class Actor {
     private int Sexo;
     @SerializedName("Telefono")
     private String Telefono;
-    @SerializedName("FechaNacimiento")
-    private Date FechaNacimiento;
-    @SerializedName("Direccion")
-    private String Direccion;
-    @SerializedName("Estado")
-    private int Estado;
+    @SerializedName("Email")
+    private String Email;
+    @SerializedName("Clave")
+    private String Clave;
 
     public int getIdActor() {
         return IdActor;
@@ -65,27 +63,23 @@ public class Actor {
         Telefono = telefono;
     }
 
-    public Date getFechaNacimiento() {
-        return FechaNacimiento;
+    public String getEmail() {
+        return Email;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        FechaNacimiento = fechaNacimiento;
+    public void setEmail(String email) {
+        Email = email;
     }
 
-    public String getDireccion() {
-        return Direccion;
+    public String getClave() {
+        return Clave;
     }
 
-    public void setDireccion(String direccion) {
-        Direccion = direccion;
-    }
-
-    public int getEstado() {
-        return Estado;
-    }
-
-    public void setEstado(int estado) {
-        Estado = estado;
+    public void setClave(String clave) {
+        Clave = clave;
     }
 }
+
+
+
+

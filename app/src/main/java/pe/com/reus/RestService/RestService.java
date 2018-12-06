@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface RestService {
@@ -15,9 +16,13 @@ public interface RestService {
     @GET("api/Reniecs/{NumeroDNI}")
     Call<Reniec> buscarDni(@Path("NumeroDNI") Long dni);
 
-    @POST("api/Eventos")
-    Call<Reu> registrarReu(@Body Reu eventos);
+    //Registrar Reus
+    @POST("api/Reus")
+    Call<Reu> registrarReu(@Body Reu reu);
 
     @POST("api/Actors")
     Call<Actor> registrarActor(@Body Actor actor);
+
+    @PUT("api/Actors/{IdActor}")
+    Call<Actor> actualizarActor(@Path("IdActor") int idActor,@Body Actor actor);
 }

@@ -118,7 +118,7 @@ public class PrincipalActivity extends AppCompatActivity
         switch (position) {
             case 1:
                 //f = LlantaFragment.newInstance(CodigoUsuario);
-                f = new ActualizarUsuarioFragment();
+                f = new ActualizarActorFragment();
                 break;
 
             case 2:

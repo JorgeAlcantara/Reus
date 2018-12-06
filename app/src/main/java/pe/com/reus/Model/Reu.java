@@ -4,31 +4,29 @@ import com.google.gson.annotations.SerializedName;
 
 public class Reu {
 
-    @SerializedName("IdEvento")
-    private int IdEvento;
+    @SerializedName("IdReu")
+    private int IdReu;
     @SerializedName("IdActor")
     private int idActor;
-    @SerializedName("Descripcion")
-    private String Descripcion;
+    @SerializedName("Nombre")
+    private String Nombre;
+    @SerializedName("Latitud")
+    private String Latitud;
+    @SerializedName("Longitud")
+    private String Longitud;
+    @SerializedName("Direccion")
+    private String Direccion;
     @SerializedName("Fecha")
     private String Fecha;
-    @SerializedName("Hora")
-    private String Hora;
-    @SerializedName("Latitud")
-    private double Latitud;
-    @SerializedName("Longitud")
-    private double Longitud;
     @SerializedName("Estado")
     private int Estado;
-    @SerializedName("Actor")
-    private Actor actor;
 
-    public int getIdEvento() {
-        return IdEvento;
+    public int getIdReu() {
+        return IdReu;
     }
 
-    public void setIdEvento(int idEvento) {
-        IdEvento = idEvento;
+    public void setIdReu(int idReu) {
+        IdReu = idReu;
     }
 
     public int getIdActor() {
@@ -39,12 +37,36 @@ public class Reu {
         this.idActor = idActor;
     }
 
-    public String getDescripcion() {
-        return Descripcion;
+    public String getNombre() {
+        return Nombre;
     }
 
-    public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
+    public void setNombre(String nombre) {
+        Nombre = nombre;
+    }
+
+    public String getLatitud() {
+        return Latitud;
+    }
+
+    public void setLatitud(String latitud) {
+        Latitud = latitud;
+    }
+
+    public String getLongitud() {
+        return Longitud;
+    }
+
+    public void setLongitud(String longitud) {
+        Longitud = longitud;
+    }
+
+    public String getDireccion() {
+        return Direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        Direccion = direccion;
     }
 
     public String getFecha() {
@@ -55,43 +77,11 @@ public class Reu {
         Fecha = fecha;
     }
 
-    public String getHora() {
-        return Hora;
-    }
-
-    public void setHora(String hora) {
-        Hora = hora;
-    }
-
-    public double getLatitud() {
-        return Latitud;
-    }
-
-    public void setLatitud(double latitud) {
-        Latitud = latitud;
-    }
-
-    public double getLongitud() {
-        return Longitud;
-    }
-
-    public void setLongitud(double longitud) {
-        Longitud = longitud;
-    }
-
     public int getEstado() {
         return Estado;
     }
 
     public void setEstado(int estado) {
         Estado = estado;
-    }
-
-    public Actor getActor() {
-        return actor;
-    }
-
-    public void setActor(Actor actor) {
-        this.actor = actor;
     }
 }

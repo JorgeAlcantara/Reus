@@ -3,6 +3,7 @@
     package="pe.com.reus">
 
     <!-- oficina : 63:B6:CD:71:92:46:52:BA:4D:27:52:68:28:DA:CC:20:D0:F8:32:41 -->
+    <!-- laptop  : FC:88:D7:94:38:65:F7:89:F8:43:C9:E4:B6:04:3C:12:A5:0F:1A:B7 -->
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -46,19 +47,19 @@
             android:name=".PrincipalActivity"
             android:label="@string/title_activity_principal"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RegistrarUsuarioActivity" />
+        <activity android:name=".RegistrarActorActivity" />
         <activity android:name=".MapaActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <service android:name=".MiFirebaseMessagingService">
+        <service android:name=".FireBase.MiFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".MiFirebaseInstanceIdService">
+        <service android:name=".FireBase.MiFirebaseInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>

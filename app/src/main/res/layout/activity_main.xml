@@ -24,14 +24,14 @@
         app:layout_constraintVertical_bias="0.022" />
 
     <EditText
-        android:id="@+id/edtUsuario"
+        android:id="@+id/edtCorreo"
         android:layout_width="346dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
-        android:hint="@string/user"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:textAppearance="?android:attr/textAppearanceMedium"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,10 +42,10 @@
 
 
     <EditText
-        android:id="@+id/edtClave"
+        android:id="@+id/edtContraseña"
         android:layout_width="346dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edtUsuario"
+        android:layout_below="@id/edtCorreo"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -61,8 +61,8 @@
 
     <Button
         android:id="@+id/btnRegistrar"
-        android:layout_width="337dp"
-        android:layout_height="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -80,8 +80,8 @@
 
     <Button
         android:id="@+id/btnAceptar"
-        android:layout_width="337dp"
-        android:layout_height="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"

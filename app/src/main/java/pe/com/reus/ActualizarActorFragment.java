@@ -3,6 +3,7 @@ package pe.com.reus;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -17,7 +18,6 @@ import android.widget.Toast;
 
 import pe.com.reus.Model.Actor;
 import pe.com.reus.Model.Reniec;
-import pe.com.reus.Model.Reu;
 import pe.com.reus.RestService.RestService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,9 +29,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ActualizarUsuarioFragment extends Fragment implements View.OnClickListener{
+public class ActualizarActorFragment extends Fragment implements View.OnClickListener {
 
-    private String urlReniec = Globals.urlReus;
+    private String urlReus = Globals.urlReus;
 
     private Retrofit retrofitActor;
     private RestService restServiceActor;
@@ -46,7 +46,7 @@ public class ActualizarUsuarioFragment extends Fragment implements View.OnClickL
     private EditText edtTelefono;
     private Button btnGrabar;
 
-    public ActualizarUsuarioFragment() {
+    public ActualizarActorFragment() {
         // Required empty public constructor
     }
 
@@ -55,7 +55,7 @@ public class ActualizarUsuarioFragment extends Fragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_actualizar_usuario, container, false);
+        View view = inflater.inflate(R.layout.fragment_actualizar_actor, container, false);
 
         edtCorreo = view.findViewById(R.id.edtCorreo);
         edtContraseña = view.findViewById(R.id.edtContraseña);
@@ -68,11 +68,14 @@ public class ActualizarUsuarioFragment extends Fragment implements View.OnClickL
         edtTelefono = view.findViewById(R.id.edtTelefono);
         btnGrabar = view.findViewById(R.id.btnGrabar);
 
+        edtCorreo.setText(Globals.correo);
+        edtContraseña.setText(Globals.contraseña);
+
         btnGrabar.setOnClickListener(this);
 
         //Actor
         retrofitActor = new Retrofit.Builder()
-                .baseUrl(urlReniec)
+                .baseUrl(urlReus)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -110,7 +113,8 @@ public class ActualizarUsuarioFragment extends Fragment implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnGrabar:
-                grabarActor();
+                actualizarActor();
+                //cerrar();
                 break;
 
         }
@@ -154,12 +158,14 @@ public class ActualizarUsuarioFragment extends Fragment implements View.OnClickL
         });
     }
 
-    private void grabarActor() {
+    private void actualizarActor() {
 
-    int sexo =0;
+        int sexo = 0;
 
         Actor actor = new Actor();
-        actor.setIdActor(4);
+        actor.setIdActor(Globals.idActor);
+        actor.setEmail(Globals.correo);
+        actor.setClave(Globals.contraseña);
         actor.setNombres(edtNombre.getText().toString());
         actor.setApellidos(edtApellido.getText().toString());
         if (rbMasculino.isChecked() == true) {
@@ -171,24 +177,22 @@ public class ActualizarUsuarioFragment extends Fragment implements View.OnClickL
         }
         actor.setSexo(sexo);
         actor.setTelefono(edtTelefono.getText().toString());
-        //actor.setFechaNacimiento();
-        //actor.setDireccion();
-        actor.setEstado(1);
 
-        restServiceActor.registrarActor(actor).enqueue(new Callback<Actor>() {
+        restServiceActor.actualizarActor(Globals.idActor,actor).enqueue(new Callback<Actor>() {
             @Override
             public void onResponse(Call<Actor> call, Response<Actor> response) {
 
                 if (response.isSuccessful()) {
                     //txtMensaje.setText("Registro OK - " + mensaje.toString());
-                    Log.e("RestService - OK", response.body().toString());
+                    //Log.i("RestService - OK", response.body().toString());
+                    Toast.makeText(getActivity(), "Usuario actualizado correctamente", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Actor> call, Throwable t) {
-                Log.e("RestService - Error ", "onFailure: ", t);
-                //txtMensaje.setText(t.toString());
+                Log.i("RestService - Error ", "onFailure: ", t);
+                Toast.makeText(getActivity(), "Usuario no actualizado", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -198,4 +202,15 @@ public class ActualizarUsuarioFragment extends Fragment implements View.OnClickL
         edtApellido.setText("");
         rgSexo.clearCheck();
     }
+
+    private void cerrar() {
+        //getActivity().onBackPressed();
+
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        getActivity().getSupportFragmentManager().popBackStack();
+        transaction.remove(this);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+        transaction.commit();
+    }
+
 }

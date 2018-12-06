@@ -8,9 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,12 +30,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RegistrarReuFragment extends Fragment implements View.OnClickListener {
 
     private final Calendar cFecha = Calendar.getInstance();
+
+    private EditText edtNombre;
+    private Spinner spiTipo;
     private EditText edtFecha;
     private EditText edtLugar;
-    private Button btnGrabar;
-    private Button btnMapa;
 
-    private String mensaje;
+    private Button btnGrabar;
+    private Button btnCancelar;
+    private Button btnMapa;
 
     private String urlReus = Globals.urlReus;
 
@@ -51,26 +56,31 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_registrar_reu, container, false);
 
+        edtNombre = view.findViewById(R.id.edtNombre);
+        spiTipo = view.findViewById(R.id.spnTipo);
         edtFecha = view.findViewById(R.id.edtFecha);
         edtLugar = view.findViewById(R.id.edtLugar);
 
         btnGrabar = view.findViewById(R.id.btnGrabar);
+        btnCancelar = view.findViewById(R.id.btnCancelar);
         btnMapa = view.findViewById(R.id.btnMapa);
 
         edtFecha.setOnClickListener(this);
         btnGrabar.setOnClickListener(this);
+        btnCancelar.setOnClickListener(this);
         btnMapa.setOnClickListener(this);
 
         fechaActual();
+        cargarTipo(view);
 
-        //Reniec
+        //Reu
         retrofitReus = new Retrofit.Builder()
                 .baseUrl(urlReus)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         restServiceReus = retrofitReus.create(RestService.class);
-        //Reniec
+        //Reu
 
         return view;
     }
@@ -90,6 +100,19 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == 1) {
+                String message = data.getStringExtra("direccion");
+                edtLugar.setText(message);
+            }
+        }
+
+    }
+
     DatePickerDialog.OnDateSetListener dateFecha = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -100,31 +123,27 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
         }
     };
 
-    public void fechaActual() {
+    private void fechaActual() {
         String dateFormat = "dd-MM-yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.US);
         edtFecha.setText(sdf.format(cFecha.getTime()));
     }
 
-    public void dateOnClickFecha(View view) {
+    private void dateOnClickFecha(View view) {
         new DatePickerDialog(getActivity(), dateFecha,
                 cFecha.get(Calendar.YEAR), cFecha.get(Calendar.MONTH), cFecha.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     private void grabarReu() {
 
-        Actor actor = new Actor();
-        actor.setIdActor(4);
-
-
         Reu reu = new Reu();
-        reu.setIdEvento(1);
-        reu.setIdActor(4);
-        reu.setDescripcion(edtLugar.getText().toString());
-        reu.setLatitud(Globals.latitud);
-        reu.setLongitud(Globals.longitud);
+        //reu.setIdReu(0);
+        reu.setIdActor(Globals.idActor);
+        reu.setNombre(edtNombre.getText().toString());
+        reu.setLatitud(Globals.latitud.toString());
+        reu.setLongitud(Globals.longitud.toString());
+        reu.setDireccion(Globals.direccion);
         reu.setFecha(edtFecha.getText().toString());
-        reu.setHora("");
         reu.setEstado(1);
 
         restServiceReus.registrarReu(reu).enqueue(new Callback<Reu>() {
@@ -132,35 +151,31 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
             public void onResponse(Call<Reu> call, Response<Reu> response) {
 
                 if (response.isSuccessful()) {
-                    mensaje = response.body().toString();
-                    //txtMensaje.setText("Registro OK - " + mensaje.toString());
-                    Log.i("RestService - OK", response.body().toString());
+                    Log.i("RestService", response.body().toString());
                 }
             }
 
             @Override
             public void onFailure(Call<Reu> call, Throwable t) {
-                Log.i("RestService - Error ", "onFailure: ", t);
-                //txtMensaje.setText(t.toString());
+                Log.i("RestService", "onFailure: ", t);
+
             }
         });
     }
 
-    public void openMapa() {
+    private void openMapa() {
 
         Intent intent = new Intent(getActivity(), MapaActivity.class);
         startActivityForResult(intent, 1);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    private void cargarTipo(View view) {
+        final String[] tipos = new String[] { "Familiar",    "Amistad", "Profesional" };
 
-        if (requestCode == 1) {
-            String message = data.getStringExtra("direccion");
-            edtLugar.setText(message);
-        }
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getActivity(),    android.R.layout.simple_spinner_item, tipos);
+        adaptador.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
 
+        spiTipo.setAdapter(adaptador);
     }
 
 }

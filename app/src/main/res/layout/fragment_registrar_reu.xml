@@ -18,28 +18,13 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/edtReuNombre"
+            android:id="@+id/edtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/reu_name"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilReuClave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/edtReuClave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/code_name"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    </android.support.design.widget.TextInputLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"

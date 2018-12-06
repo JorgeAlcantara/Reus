@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".RegistrarUsuarioActivity">
+    tools:context=".RegistrarActorActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilEmial"
+        android:id="@+id/tilEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -31,6 +31,7 @@
         android:id="@+id/edtContraseña"
         android:layout_width="match_parent"
         android:hint="@string/password"
+        android:inputType="textPassword"
         android:layout_height="wrap_content" />
 
     <android.support.design.widget.TextInputLayout
@@ -109,6 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/telephone"
+            android:inputType="number"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </android.support.design.widget.TextInputLayout>
 

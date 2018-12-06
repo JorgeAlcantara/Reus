@@ -10,11 +10,14 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -28,11 +31,19 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import pe.com.reus.DAO.ReusDAO;
+import pe.com.reus.Exception.DAOException;
+import pe.com.reus.Model.Ubicacion;
+
 
 public class MapaActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    AutoCompleteTextView autDireccion;
+    ArrayList<Ubicacion> resultados;
 
     private GoogleMap mMap;
     private Marker marcador;
@@ -47,6 +58,15 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        autDireccion = findViewById(R.id.autDireccion);
+
+        buscarUbicacion();
+
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,resultados);
+
+        autDireccion.setAdapter(adapter);
+        autDireccion.setThreshold(1);
+
     }
 
 
@@ -55,7 +75,6 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mMap = googleMap;
         miUbicacion();
-
 
         /*
         //mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
@@ -182,6 +201,8 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onClick(DialogInterface arg0, int arg1) {
                         //Toast.makeText(MapaActivity.this,"You clicked yes button",Toast.LENGTH_LONG).show();
                         obtenerDireccion();
+                        grabarUbicacionSQL();
+                        cerrarMapa();
                     }
                 });
 
@@ -215,21 +236,68 @@ public class MapaActivity extends AppCompatActivity implements OnMapReadyCallbac
             direccion = addresses.get(0).getAddressLine(0);
 
         } catch (IOException e) {
-
+            Log.e("MapaActivity", e.getMessage());
         }
 
-        Toast.makeText(MapaActivity.this, "Direccion obtenedida : " + direccion, Toast.LENGTH_LONG).show();
+        Toast.makeText(MapaActivity.this, "Direccion obtenida : " + direccion, Toast.LENGTH_LONG).show();
         Globals.direccion = direccion;
-        Globals.latitud = lat;
-        Globals.longitud = lng;
-
-        Intent intent = new Intent();
-        intent.putExtra("direccion", direccion);
-        setResult(1, intent);
-        finish();
-
+        Globals.latitud = String.valueOf(lat);
+        Globals.longitud = String.valueOf(lng);
 
     }
 
+    private void grabarUbicacionSQL() {
+
+        String direccion = Globals.direccion;
+        String latitud = Globals.latitud;
+        String longitud = Globals.longitud;
+
+        ReusDAO dao = new ReusDAO(getBaseContext());
+        try {
+            dao.insertar(direccion, latitud, longitud);
+
+            Toast toast = Toast.makeText(getApplicationContext(), "Se insertó correctamente", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
+
+        } catch (DAOException e) {
+            Log.e("MapaActivity", "=> " + e.getMessage());
+        }
+    }
+
+    private void cerrarMapa() {
+        Intent intent = new Intent();
+        intent.putExtra("direccion", Globals.direccion);
+        setResult(1, intent);
+        finish();
+    }
+
+    public void buscarUbicacion() {
+
+        ReusDAO dao = new ReusDAO(getBaseContext());
+        try {
+            resultados = dao.buscar(autDireccion.toString());
+
+            /*
+            String[] encontrados = new String[resultados.size()];
+            int i = 0;
+            for (Ubicacion gm : resultados){
+                encontrados[i++] = gm.getDireccion();
+            }
+
+
+            ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this.getBaseContext(),
+                    android.R.layout.simple_expandable_list_item_1,
+                    encontrados);
+
+            ListView listaResultados = (ListView)findViewById(R.id.listaResultados);
+            listaResultados.setAdapter(adaptador);
+            */
+
+
+        } catch (DAOException e) {
+            Log.e("GeneroMusicalBuscarAc", "====> " + e.getMessage());
+        }
+    }
 
 }

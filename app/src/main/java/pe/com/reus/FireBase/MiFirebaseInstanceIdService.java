@@ -1,4 +1,4 @@
-package pe.com.reus;
+package pe.com.reus.FireBase;
 
 import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;

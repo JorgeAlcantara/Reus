@@ -1,4 +1,4 @@
-package pe.com.reus;
+package pe.com.reus.FireBase;
 
 import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -9,6 +9,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
+
+import pe.com.reus.NotificacionActivity;
+import pe.com.reus.R;
 
 
 public class MiFirebaseMessagingService extends FirebaseMessagingService {
