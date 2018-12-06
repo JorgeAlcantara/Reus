@@ -21,6 +21,17 @@ public class Reu {
     @SerializedName("Estado")
     private int Estado;
 
+    public Reu(int idReu, int idActor, String nombre, String latitud, String longitud, String direccion, String fecha, int estado) {
+        IdReu = idReu;
+        this.idActor = idActor;
+        Nombre = nombre;
+        Latitud = latitud;
+        Longitud = longitud;
+        Direccion = direccion;
+        Fecha = fecha;
+        Estado = estado;
+    }
+
     public int getIdReu() {
         return IdReu;
     }

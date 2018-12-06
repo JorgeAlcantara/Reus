@@ -136,6 +136,7 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
 
     private void grabarReu() {
 
+        /*
         Reu reu = new Reu();
         //reu.setIdReu(0);
         reu.setIdActor(Globals.idActor);
@@ -145,6 +146,9 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
         reu.setDireccion(Globals.direccion);
         reu.setFecha(edtFecha.getText().toString());
         reu.setEstado(1);
+        */
+        Reu reu = new Reu(1,Globals.idActor,edtNombre.getText().toString(),Globals.latitud.toString(),Globals.longitud.toString(),Globals.direccion,edtFecha.getText().toString(),1);
+
 
         restServiceReus.registrarReu(reu).enqueue(new Callback<Reu>() {
             @Override

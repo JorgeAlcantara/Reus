@@ -27,7 +27,6 @@ public class RegistrarActorActivity extends AppCompatActivity implements View.On
     private EditText edtContraseña;
     private Button btnGrabar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

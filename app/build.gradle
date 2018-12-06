@@ -37,6 +37,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.5'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
 
+    implementation files('libs/ImageBase64Encoder.jar')
+    implementation files('libs/ksoap2-android-assembly-3.0.0-jar-with-dependencies.jar')
 
 }
 
