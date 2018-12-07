@@ -8,20 +8,22 @@ import java.util.Date;
 
 public class Actor {
 
-    @SerializedName("IdActor")
+    @SerializedName("idactor")
     private int IdActor;
-    @SerializedName("Nombres")
-    private String Nombres;
-    @SerializedName("Apellidos")
-    private String Apellidos;
-    @SerializedName("Sexo")
+    @SerializedName("nombre")
+    private String Nombre;
+    @SerializedName("apellido")
+    private String Apellido;
+    @SerializedName("sexo")
     private int Sexo;
-    @SerializedName("Telefono")
+    @SerializedName("telefono")
     private String Telefono;
-    @SerializedName("Email")
+    @SerializedName("email")
     private String Email;
-    @SerializedName("Clave")
-    private String Clave;
+    @SerializedName("password")
+    private String Password;
+    @SerializedName("estado")
+    private String Estado;
 
     public int getIdActor() {
         return IdActor;
@@ -31,20 +33,20 @@ public class Actor {
         IdActor = idActor;
     }
 
-    public String getNombres() {
-        return Nombres;
+    public String getNombre() {
+        return Nombre;
     }
 
-    public void setNombres(String nombres) {
-        Nombres = nombres;
+    public void setNombre(String nombre) {
+        Nombre = nombre;
     }
 
-    public String getApellidos() {
-        return Apellidos;
+    public String getApellido() {
+        return Apellido;
     }
 
-    public void setApellidos(String apellidos) {
-        Apellidos = apellidos;
+    public void setApellido(String apellido) {
+        Apellido = apellido;
     }
 
     public int getSexo() {
@@ -71,12 +73,20 @@ public class Actor {
         Email = email;
     }
 
-    public String getClave() {
-        return Clave;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setClave(String clave) {
-        Clave = clave;
+    public void setPassword(String password) {
+        Password = password;
+    }
+
+    public String getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(String estado) {
+        Estado = estado;
     }
 }
 

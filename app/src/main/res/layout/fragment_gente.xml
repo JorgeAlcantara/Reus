@@ -17,4 +17,10 @@
         android:layout_height="wrap_content"
         android:scrollbars="vertical" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Llamar"
+        android:id="@+id/btnLlamar"/>
+
 </LinearLayout>

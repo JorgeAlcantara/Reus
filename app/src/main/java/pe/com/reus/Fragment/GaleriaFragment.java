@@ -18,11 +18,12 @@ import pe.com.reus.Adapter.OnReuListener;
 import pe.com.reus.Adapter.ReuListadoAdapter;
 import pe.com.reus.GaleriaFotosActivity;
 import pe.com.reus.Model.Reu;
+import pe.com.reus.Model.Reu2;
 import pe.com.reus.R;
 
 public class GaleriaFragment extends Fragment {
 
-    private List<Reu> reuList = new ArrayList<>();
+    private List<Reu2> reuList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ReuListadoAdapter mAdapter;
 
@@ -53,11 +54,18 @@ public class GaleriaFragment extends Fragment {
     }
 
     private void listarReu() {
-        Reu reu = new Reu(1, 1, "Cumple de Mafer", "0", "0", "07/12/2018", "Av. La marina 163 - San Miguel", 1);
+        Reu2 reu = new Reu2( "Cumple de Mafer", "07/12/2018", "Av. La marina 163 - San Miguel");
         reuList.add(reu);
 
-        reu = new Reu(1, 2, "Reencuentro de la Promo", "0", "0", "09/12/2018", "Av. Sucre 562 - Magdalena", 1);
+        reu = new Reu2("Reencuentro de la Promo", "09/12/2018", "Av. Sucre 562 - Magdalena");
         reuList.add(reu);
+
+        reu = new Reu2("Pichanga saliendo del trabajo", "09/12/2018", "Av. Bolognesi 562 - Magdalena");
+        reuList.add(reu);
+
+        reu = new Reu2("Ir en mancha al cine", "10/12/2018", "Av. Riva aguero 562 - San Miguel");
+        reuList.add(reu);
+
 
         mAdapter.setOnReuListener(new OnReuListener() {
             @Override

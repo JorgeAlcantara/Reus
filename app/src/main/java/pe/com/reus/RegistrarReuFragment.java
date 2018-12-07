@@ -40,7 +40,7 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
     private Button btnCancelar;
     private Button btnMapa;
 
-    private String urlReus = Globals.urlReus;
+    private String urlReus = Globals.urlLocal;
 
 
     private Retrofit retrofitReus;
@@ -136,19 +136,20 @@ public class RegistrarReuFragment extends Fragment implements View.OnClickListen
 
     private void grabarReu() {
 
-        /*
+        Actor actor = new Actor();
+        actor.setIdActor(Globals.idActor);
+
         Reu reu = new Reu();
         //reu.setIdReu(0);
-        reu.setIdActor(Globals.idActor);
+        reu.setTipo("");
         reu.setNombre(edtNombre.getText().toString());
         reu.setLatitud(Globals.latitud.toString());
         reu.setLongitud(Globals.longitud.toString());
         reu.setDireccion(Globals.direccion);
         reu.setFecha(edtFecha.getText().toString());
         reu.setEstado(1);
-        */
-        Reu reu = new Reu(1,Globals.idActor,edtNombre.getText().toString(),Globals.latitud.toString(),Globals.longitud.toString(),Globals.direccion,edtFecha.getText().toString(),1);
-
+        reu.setActor(actor);
+        //Reu reu = new Reu(1,Globals.idActor,edtNombre.getText().toString(),Globals.latitud.toString(),Globals.longitud.toString(),Globals.direccion,edtFecha.getText().toString(),1);
 
         restServiceReus.registrarReu(reu).enqueue(new Callback<Reu>() {
             @Override

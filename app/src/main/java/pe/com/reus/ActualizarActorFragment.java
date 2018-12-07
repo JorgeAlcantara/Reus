@@ -32,9 +32,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ActualizarActorFragment extends Fragment implements View.OnClickListener {
 
     private String urlReus = Globals.urlReus;
+    private String urlLocal = Globals.urlLocal;
 
-    private Retrofit retrofitActor;
-    private RestService restServiceActor;
+    private Retrofit retrofitActor,retrofitReniec;
+    private RestService restServiceActor,restServiceReniec;
 
     private EditText edtCorreo;
     private EditText edtContraseña;
@@ -73,9 +74,18 @@ public class ActualizarActorFragment extends Fragment implements View.OnClickLis
 
         btnGrabar.setOnClickListener(this);
 
+        //Reniec
+        retrofitReniec = new Retrofit.Builder()
+                .baseUrl(urlReus)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        restServiceReniec = retrofitReniec.create(RestService.class);
+        //Reniec
+
         //Actor
         retrofitActor = new Retrofit.Builder()
-                .baseUrl(urlReus)
+                .baseUrl(urlLocal)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -121,7 +131,7 @@ public class ActualizarActorFragment extends Fragment implements View.OnClickLis
     }
 
     private void buscarDni(Long dni) {
-        restServiceActor.buscarDni(dni).enqueue(new Callback<Reniec>() {
+        restServiceReniec.buscarDni(dni).enqueue(new Callback<Reniec>() {
 
             private Reniec reniec;
 
@@ -165,9 +175,9 @@ public class ActualizarActorFragment extends Fragment implements View.OnClickLis
         Actor actor = new Actor();
         actor.setIdActor(Globals.idActor);
         actor.setEmail(Globals.correo);
-        actor.setClave(Globals.contraseña);
-        actor.setNombres(edtNombre.getText().toString());
-        actor.setApellidos(edtApellido.getText().toString());
+        actor.setPassword(Globals.contraseña);
+        actor.setNombre(edtNombre.getText().toString());
+        actor.setApellido(edtApellido.getText().toString());
         if (rbMasculino.isChecked() == true) {
             sexo = 1;
         }
@@ -186,6 +196,7 @@ public class ActualizarActorFragment extends Fragment implements View.OnClickLis
                     //txtMensaje.setText("Registro OK - " + mensaje.toString());
                     //Log.i("RestService - OK", response.body().toString());
                     Toast.makeText(getActivity(), "Usuario actualizado correctamente", Toast.LENGTH_LONG).show();
+                    cerrar();
                 }
             }
 

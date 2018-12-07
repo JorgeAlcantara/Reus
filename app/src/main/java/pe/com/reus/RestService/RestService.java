@@ -1,5 +1,7 @@
 package pe.com.reus.RestService;
 
+import java.util.List;
+
 import pe.com.reus.Model.Actor;
 import pe.com.reus.Model.Reniec;
 import pe.com.reus.Model.Reu;
@@ -16,13 +18,26 @@ public interface RestService {
     @GET("api/Reniecs/{NumeroDNI}")
     Call<Reniec> buscarDni(@Path("NumeroDNI") Long dni);
 
-    //Registrar Reus
-    @POST("api/Reus")
-    Call<Reu> registrarReu(@Body Reu reu);
+    //Validar usuario y password de Usuario
+    @GET("api/actor/{nombre}/{password}")
+    Call<Actor> loguear(@Path("nombre") String nombre, @Path("password") String password);
 
-    @POST("api/Actors")
+    //Actualizar Actor
+    @PUT("api/actor/{idactor}")
+    Call<Actor> actualizarActor(@Path("idactor") int idActor,@Body Actor actor);
+
+    @POST("api/registrarActor")
     Call<Actor> registrarActor(@Body Actor actor);
 
-    @PUT("api/Actors/{IdActor}")
-    Call<Actor> actualizarActor(@Path("IdActor") int idActor,@Body Actor actor);
+    //Registrar Reus
+    @POST("api/registrarReu")
+    Call<Reu> registrarReu(@Body Reu reu);
+
+    //Listar Reus
+    @GET("api/reus")
+    Call<List<Reu>> listarReu();
+
+
+
+
 }

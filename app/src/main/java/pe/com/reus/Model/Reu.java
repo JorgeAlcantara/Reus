@@ -4,33 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class Reu {
 
-    @SerializedName("IdReu")
+    @SerializedName("idReu")
     private int IdReu;
-    @SerializedName("IdActor")
-    private int idActor;
-    @SerializedName("Nombre")
+    @SerializedName("nombre")
     private String Nombre;
-    @SerializedName("Latitud")
-    private String Latitud;
-    @SerializedName("Longitud")
-    private String Longitud;
-    @SerializedName("Direccion")
-    private String Direccion;
-    @SerializedName("Fecha")
+    @SerializedName("tipo")
+    private String Tipo;
+    @SerializedName("fecha")
     private String Fecha;
-    @SerializedName("Estado")
+    @SerializedName("latitud")
+    private String Latitud;
+    @SerializedName("longitud")
+    private String Longitud;
+    @SerializedName("direccion")
+    private String Direccion;
+    @SerializedName("estado")
     private int Estado;
-
-    public Reu(int idReu, int idActor, String nombre, String latitud, String longitud, String direccion, String fecha, int estado) {
-        IdReu = idReu;
-        this.idActor = idActor;
-        Nombre = nombre;
-        Latitud = latitud;
-        Longitud = longitud;
-        Direccion = direccion;
-        Fecha = fecha;
-        Estado = estado;
-    }
+    @SerializedName("actor")
+    private Actor actor;
 
     public int getIdReu() {
         return IdReu;
@@ -40,20 +31,28 @@ public class Reu {
         IdReu = idReu;
     }
 
-    public int getIdActor() {
-        return idActor;
-    }
-
-    public void setIdActor(int idActor) {
-        this.idActor = idActor;
-    }
-
     public String getNombre() {
         return Nombre;
     }
 
     public void setNombre(String nombre) {
         Nombre = nombre;
+    }
+
+    public String getTipo() {
+        return Tipo;
+    }
+
+    public void setTipo(String tipo) {
+        Tipo = tipo;
+    }
+
+    public String getFecha() {
+        return Fecha;
+    }
+
+    public void setFecha(String fecha) {
+        Fecha = fecha;
     }
 
     public String getLatitud() {
@@ -80,14 +79,6 @@ public class Reu {
         Direccion = direccion;
     }
 
-    public String getFecha() {
-        return Fecha;
-    }
-
-    public void setFecha(String fecha) {
-        Fecha = fecha;
-    }
-
     public int getEstado() {
         return Estado;
     }
@@ -95,4 +86,13 @@ public class Reu {
     public void setEstado(int estado) {
         Estado = estado;
     }
+
+    public Actor getActor() {
+        return actor;
+    }
+
+    public void setActor(Actor actor) {
+        this.actor = actor;
+    }
+
 }

@@ -9,12 +9,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import pe.com.reus.Model.Actor;
+import pe.com.reus.RestService.RestService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText edtCorreo;
     private EditText edtContraseña;
     private Button btnAceptar;
     private TextView txtCrear;
+
+    private String url = Globals.urlLocal;
+
+    private Retrofit retrofit;
+    private RestService restService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +41,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnAceptar.setOnClickListener(this);
         txtCrear.setOnClickListener(this);
+
+        //
+        retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        restService = retrofit.create(RestService.class);
+        //
 
     }
 
@@ -54,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
+    /*
     private void loguear(String correo, String contraseña) {
         if (correo.equals(Globals.correo)) {
             if (contraseña.equals(Globals.contraseña)) {
@@ -65,5 +87,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Correo incorrecto", Toast.LENGTH_LONG).show();
         }
 
+    }
+    */
+    private void loguear(String nombre, String password) {
+        restService.loguear(nombre, password).enqueue(new Callback<Actor>() {
+            @Override
+            public void onResponse(Call<Actor> call, Response<Actor> response) {
+
+                Actor actor = response.body();
+
+                if (actor == null) {
+
+                    Toast.makeText(getApplication(), response.message(), Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    Globals.idActor = actor.getIdActor();
+                    Globals.correo = actor.getEmail();
+                    Globals.contraseña = actor.getPassword();
+                    openPrincipal();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Actor> call, Throwable t) {
+                //Log.e("RestService", "onFailure: ", t);
+                Toast.makeText(getApplication(), t.toString(), Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 }

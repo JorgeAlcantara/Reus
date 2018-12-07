@@ -65,7 +65,7 @@ public class RegistrarActorActivity extends AppCompatActivity implements View.On
         Actor actor = new Actor();
         //actor.setIdActor(0);
         actor.setEmail(edtCorreo.getText().toString());
-        actor.setClave(edtContraseña.getText().toString());
+        actor.setPassword(edtContraseña.getText().toString());
 
         restServiceActor.registrarActor(actor).enqueue(new Callback<Actor>() {
             @Override
@@ -78,7 +78,7 @@ public class RegistrarActorActivity extends AppCompatActivity implements View.On
                     Actor actorData = response.body();
                     Globals.idActor = actorData.getIdActor();
                     Globals.correo = actorData.getEmail();
-                    Globals.contraseña = actorData.getClave();
+                    Globals.contraseña = actorData.getPassword();
 
                 }
             }

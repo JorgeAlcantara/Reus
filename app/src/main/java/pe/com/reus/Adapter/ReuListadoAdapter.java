@@ -10,11 +10,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import pe.com.reus.Model.Reu;
+import pe.com.reus.Model.Reu2;
 import pe.com.reus.R;
 
 public class ReuListadoAdapter extends RecyclerView.Adapter<ReuListadoAdapter.MyViewHolder>  {
 
-    private List<Reu> reuList;
+    private List<Reu2> reuList;
 
     private OnReuListener onReuListener;
 
@@ -47,7 +48,7 @@ public class ReuListadoAdapter extends RecyclerView.Adapter<ReuListadoAdapter.My
     }
 
 
-    public ReuListadoAdapter(List<Reu> reuList) {
+    public ReuListadoAdapter(List<Reu2> reuList) {
         this.reuList = reuList;
     }
 
@@ -61,7 +62,7 @@ public class ReuListadoAdapter extends RecyclerView.Adapter<ReuListadoAdapter.My
 
     @Override
     public void onBindViewHolder(ReuListadoAdapter.MyViewHolder holder, int position) {
-        Reu reu = reuList.get(position);
+        Reu2 reu = reuList.get(position);
         holder.nombre.setText(reu.getNombre());
         holder.fecha.setText(reu.getFecha());
         holder.direccion.setText(reu.getDireccion());
